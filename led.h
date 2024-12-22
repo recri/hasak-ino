@@ -23,15 +23,39 @@
  * THE SOFTWARE.
  */
 
+/*
+** Used Stoffregen's non-blocking WS2812Serial library.
+** But saw some artefacts on the HL2 spectrum display
+** that correlated with powering Hasak.
+** Switched to Adafruit_NeoPixel library.
+** Still saw the birdies,
+** Now think it might be the USB cable radiating.
+*/
+
+#define WS2812Serial 1
+#define NeoPixel 0
+
+#if WS2812Serial
 #include <WS2812Serial.h>
+#endif
+
+#if NeoPixel
+#include <Adafruit_NeoPixel.h>
+#endif
 
 static const int led_pin = KYR_LED_OUT_PIN;
 static const int led_numled = 3;
 
+#if WS2812Serial
 static byte led_drawingMemory[led_numled*3];         //  3 bytes per LED
 static DMAMEM byte led_displayMemory[led_numled*12]; // 12 bytes per LED
 
 static WS2812Serial leds(led_numled, led_displayMemory, led_drawingMemory, led_pin, WS2812_RGB);
+#endif
+
+#if NeoPixel
+static Adafruit_NeoPixel leds(led_numled, led_pin, NEO_RGB + NEO_KHZ800);
+#endif
 
 /*
 // More intense...
@@ -54,12 +78,17 @@ static WS2812Serial leds(led_numled, led_displayMemory, led_drawingMemory, led_p
 
 static void led_setcolor(int color) {
   for (int i=0; i < leds.numPixels(); i++) {
+#if WS2812Serial
     leds.setPixel(i, color);
+#endif
+#if NeoPixel
+    leds.setPixelColor(i, color);
+#endif
   }
   leds.show();
 }
 
 static void led_setup(void) {
   leds.begin();
-  led_setcolor(0);
+  led_setcolor(ORANGE);
 }
