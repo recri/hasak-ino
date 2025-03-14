@@ -266,6 +266,7 @@ proc main {argv} {
 		{^#define EEPROM.*$} continue
 		{^#define VAL_SIGN.*$} continue
 		{^static.*$} continue
+		{^\[\[maybe_unused\]\] static.*$} continue
 		{^//.*$} continue
 		{^[ \t]+/\* xnrpn \*/$} continue
 		default {

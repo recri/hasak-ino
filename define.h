@@ -259,6 +259,12 @@ static void define_define(void) {
     case NRPN_PADC_RATE:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
     case NRPN_XTONE:		nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
     case NRPN_XTONE+1:		nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
+      
+    case NRPN_LED_ENABLE:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
+    case NRPN_XLED_ON_COLOR:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
+    case NRPN_XLED_ON_COLOR+1:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
+    case NRPN_XLED_OFF_COLOR:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
+    case NRPN_XLED_OFF_COLOR+1:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
 
     case NRPN_CODEC_VOLUME:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write
     case NRPN_INPUT_SELECT:	nrpn_define(nrpn, 0, 1, 1, 1, 0); break; // in, out, echo, write

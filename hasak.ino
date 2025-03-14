@@ -10,8 +10,7 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice, development funding notice, and this permission
+ *n9kw * The above copyright notice, development funding notice, and this permission
  * notice shall be included in all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -90,6 +89,7 @@ static void interrupt() {
 }
 
 void setup(void) {
+#define KYR_SERIAL_ENABLE 1
 #if KYR_SERIAL_ENABLE
   Serial.begin(115200);
   while ( ! Serial);
@@ -139,6 +139,9 @@ void setup(void) {
   static IntervalTimer timer;
   // timer.priority(96);
   timer.begin(interrupt, 1e6/AUDIO_SAMPLE_RATE_EXACT);
+#if KYR_SERIAL_ENABLE
+  Serial.printf("hasak.ino setup() finished\n");
+#endif
 }
 
 /*
@@ -146,6 +149,11 @@ void setup(void) {
 ** but many of those functions are empty.
 */
 void loop(void) {
+
+#if KYR_SERIAL_ENABLE
+  // static unsigned loop_counter = 0; if ((loop_counter % 1) ==0) { Serial.printf("loop %u\n", loop_counter); } loop_counter += 1;
+#endif
+
   timing_loop();		// accumulate counts
   midi_loop();			// drain midi input
 
@@ -170,6 +178,11 @@ void loop(void) {
 
   listener_loop();		// after idle dispatch
   diagnostics_loop();		// console
+
+#if KYR_SERIAL_ENABLE
+  // Serial.printf("loop() done\n");
+#endif
+  
 }
 
 

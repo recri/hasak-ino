@@ -88,8 +88,8 @@
 #define TEENSY40 1
 #define EEPROM_BYTES 1080
 #define TEENSY_CPU_ID 40
-static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
-static int pin_analog(int pin) { return ((pin) >= 14 && (pin) <= 27); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
+[[maybe_unused]] static int pin_analog(int pin) { return ((pin) >= 14 && (pin) <= 27); }
 
 #elif defined(ARDUINO_TEENSY41)
 
@@ -97,8 +97,8 @@ static int pin_analog(int pin) { return ((pin) >= 14 && (pin) <= 27); }
 #define TEENSY41 1
 #define EEPROM_BYTES 4284
 #define TEENSY_CPU_ID 41
-static int pin_valid(int pin) { return ((unsigned)(pin) <= 41); }
-static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 38 && (pin) <= 41)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) <= 41); }
+[[maybe_unused]] static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 38 && (pin) <= 41)); }
 
 #elif defined(ARDUINO_TEENSY30)
 
@@ -106,8 +106,8 @@ static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) 
 #define TEENSY30 1
 #define EEPROM_BYTES 2048
 #define TEENSY_CPU_ID 30
-static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
-static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
+[[maybe_unused]] static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
 
 #elif defined(ARDUINO_TEENSY31)
 
@@ -115,8 +115,8 @@ static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) 
 #define TEENSY31 1
 #define EEPROM_BYTES 2048
 #define TEENSY_CPU_ID 31
-static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
-static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
+[[maybe_unused]] static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
 
 #elif defined(ARDUINO_TEENSY32)
 
@@ -124,8 +124,8 @@ static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) 
 #define TEENSY32 1
 #define EEPROM_BYTES 2048
 #define TEENSY_CPU_ID 32
-static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
-static int pin_analog(pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) <= 33); }
+[[maybe_unused]] static int pin_analog(pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 26 && (pin) <= 31)); }
 
 #elif defined(ARDUINO_TEENSY35)
 
@@ -133,8 +133,8 @@ static int pin_analog(pin) { return (((pin) >= 14 && (pin) <= 23) || ((pin) >= 2
 #define TEENSY35 1
 #define EEPROM_BYTES 4096
 #define TEENSY_CPU_ID 35
-static int pin_valid(int pin) { return ((unsigned)(pin) < 58); }
-static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 31 && (pin) <= 39)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) < 58); }
+[[maybe_unused]] static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 31 && (pin) <= 39)); }
 
 #elif defined(ARDUINO_TEENSY36)
 
@@ -142,8 +142,8 @@ static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) 
 #define TEENSY36 1
 #define EEPROM_BYTES 4096
 #define TEENSY_CPU_ID 36
-static int pin_valid(int pin) { return ((unsigned)(pin) < 58); }
-static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 31 && (pin) <= 39)); }
+[[maybe_unused]] static int pin_valid(int pin) { return ((unsigned)(pin) < 58); }
+[[maybe_unused]] static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) >= 31 && (pin) <= 39)); }
 
 #else
 
@@ -215,8 +215,8 @@ static int pin_analog(int pin) { return (((pin) >= 14 && (pin) <= 27) || ((pin) 
 
 #endif
 
-static int pin_i2s(int p) { return ((p)==KYR_DIN||(p)==KYR_DOUT||(p)==KYR_MCLK||(p)==KYR_BCLK||(p)==KYR_LRCLK); }
-static int pin_i2c(int p) { return ((p)==KYR_SCL||(p)==KYR_SDA); }
+[[maybe_unused]] static int pin_i2s(int p) { return ((p)==KYR_DIN||(p)==KYR_DOUT||(p)==KYR_MCLK||(p)==KYR_BCLK||(p)==KYR_LRCLK); }
+[[maybe_unused]] static int pin_i2c(int p) { return ((p)==KYR_SCL||(p)==KYR_SDA); }
 
 /* 
 ** pin allocations for standard input switches and output latches
@@ -229,7 +229,7 @@ static int pin_i2c(int p) { return ((p)==KYR_SCL||(p)==KYR_SDA); }
 #define KYR_PTT_OUT_PIN	4	/* {type pin title {PTT output pin}} */
 #define KYR_KEY_OUT_PIN	5	/* {type pin title {KEY output pin}} */
 #define KYR_LED_OUT_PIN 14	/* {type pin title {LED output pin}} */
-
+#define KYR_LED_NUM_LED 3	/* {type def title {Number of LEDs}} */
 /*
 ** pin allocations for CWKeyer shield input pots
 ** These are soft wired.
@@ -529,6 +529,7 @@ static int pin_i2c(int p) { return ((p)==KYR_SCL||(p)==KYR_SDA); }
 #define NRPN_KEYDOWN_NOTE		(NRPN_FIRST+27) /* {type nrpn sub cmd title {CWKeyer Shield nrpn}} */
 #define NRPN_PTT_NOTE			(NRPN_FIRST+28) /* {type nrpn sub cmd title {CWKeyer Shield nrpn}} */
 
+/* these all suffer from the problem that looking at them changes them, so they're hard to watch */
 #define NRPN_MIDI_INPUTS	(NRPN_FIRST+6+23) /* {type nrpn sub info title {number of midi input messages received} listen 0} */
 #define NRPN_MIDI_OUTPUTS	(NRPN_FIRST+7+23) /* {type nrpn sub info title {number of midi output messages sent} listen 0} */
 #define NRPN_MIDI_ECHOES	(NRPN_FIRST+8+23) /* {type nrpn sub info title {number of midi automatic echo messages sent} listen 0} */
@@ -641,9 +642,12 @@ static int pin_i2c(int p) { return ((p)==KYR_SCL||(p)==KYR_SDA); }
 #define NRPN_POUT_LOGIC		(NRPN_MISC+8) /* {type nrpn label OutLog title {output pin logic} range {0 1} property pinLogic} */
 #define NRPN_PADC_RATE		(NRPN_MISC+9) /* {type nrpn label AdcRate title {sample rate for analog sampling} range {0 16383} unit ms property adc2Control valuesProperty adcControls} */
 #define NRPN_XTONE		(NRPN_MISC+10) /* {type nrpn sub ext title {extended tone} unit hz/1000 range {-134217728 134217727}} */
+#define NRPN_LED_ENABLE		(NRPN_MISC+12) /* {type nrpn title {LED enable} range {0 1}} */
+#define NRPN_XLED_ON_COLOR	(NRPN_MISC+13) /* {type nrpn title {LED on color} range {0 0xFFFFFF}} */
+#define NRPN_XLED_OFF_COLOR	(NRPN_MISC+15) /* {type nrpn title {LED off color} range {0 0xFFFFFF}} */
 				/* xnrpn */
 
-#define NRPN_CODEC	(NRPN_MISC+12) /* {type rel title {base of codec nrpns}} */
+#define NRPN_CODEC	(NRPN_MISC+17) /* {type rel title {base of codec nrpns}} */
       
 #define NRPN_CODEC_VOLUME	(NRPN_CODEC+0) /* {type nrpn label Vol title {output volume} unit dB/10 range {-320 60} property masterVolume} */
 #define NRPN_INPUT_SELECT	(NRPN_CODEC+1) /* {type nrpn label InSel title {input select} values VAL_INPUT_* property inputSelect} */

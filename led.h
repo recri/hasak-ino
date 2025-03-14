@@ -32,29 +32,27 @@
 ** Now think it might be the USB cable radiating.
 */
 
-#define WS2812Serial 1
-#define NeoPixel 0
+#if KYR_LED_OUT_PIN >= 0 && KYR_LED_NUM_LED > 0
 
-#if WS2812Serial
+#define LED_WS2812Serial 1
+#define LED_NeoPixel 0
+
+#if LED_WS2812Serial
+
 #include <WS2812Serial.h>
+
+static byte led_drawingMemory[KYR_LED_NUM_LED*3];         //  3 bytes per LED
+static DMAMEM byte led_displayMemory[KYR_LED_NUM_LED*12]; // 12 bytes per LED
+
+static WS2812Serial leds(KYR_LED_NUM_LED, led_displayMemory, led_drawingMemory, KYR_LED_OUT_PIN, WS2812_RGB);
+
 #endif
 
-#if NeoPixel
+#if LED_NeoPixel
 #include <Adafruit_NeoPixel.h>
-#endif
 
-static const int led_pin = KYR_LED_OUT_PIN;
-static const int led_numled = 3;
+static Adafruit_NeoPixel leds(KYR_LED_NUM_LED, KYR_LED_OUT_PIN, NEO_RGB + NEO_KHZ800);
 
-#if WS2812Serial
-static byte led_drawingMemory[led_numled*3];         //  3 bytes per LED
-static DMAMEM byte led_displayMemory[led_numled*12]; // 12 bytes per LED
-
-static WS2812Serial leds(led_numled, led_displayMemory, led_drawingMemory, led_pin, WS2812_RGB);
-#endif
-
-#if NeoPixel
-static Adafruit_NeoPixel leds(led_numled, led_pin, NEO_RGB + NEO_KHZ800);
 #endif
 
 /*
@@ -78,17 +76,52 @@ static Adafruit_NeoPixel leds(led_numled, led_pin, NEO_RGB + NEO_KHZ800);
 
 static void led_setcolor(int color) {
   for (int i=0; i < leds.numPixels(); i++) {
-#if WS2812Serial
+#if LED_WS2812Serial
     leds.setPixel(i, color);
 #endif
-#if NeoPixel
+#if LED_NeoPixel
     leds.setPixelColor(i, color);
 #endif
   }
   leds.show();
 }
 
+/*
+ * This listens to the midi note bound to sidetone keying
+ * and sets the leds value to correspond to the midi note value.
+ */
+static void led_note_listener(int note, int _) { 
+  const int val = note_get(note);
+  const int on_color = xnrpn_get(NRPN_XLED_ON_COLOR);
+  const int off_color = xnrpn_get(NRPN_XLED_OFF_COLOR);
+  led_setcolor( val ? on_color : off_color );
+  // Serial.printf("led_note_listener(note=%d, _) led_setcolor( %d ? %d : %d)\n", note, val, on_color, off_color);
+}
+
+/*
+ * This listens to the nrpn which assigns the LED pin
+ * and sets the pin value to correspond to the midi note value.
+ */
+static void led_nrpn_listener(int nrpn, int _) {
+  const int pin = nrpn_get(nrpn);
+  // Serial.printf("led_nrpn_listener(nrpn=%d, _) -> pin=%d and note=%d\n", nrpn, pin, NOTE_KEY_ST);
+  if (pin_valid(pin)) {
+    note_listen(NOTE_KEY_ST, led_note_listener);
+    led_setcolor(xnrpn_get(NRPN_XLED_OFF_COLOR));
+  } else {
+    note_unlisten(NOTE_KEY_ST, led_note_listener);
+    led_setcolor(0);
+  }
+}
+
 static void led_setup(void) {
   leds.begin();
-  led_setcolor(ORANGE);
+  led_setcolor(0);
+  nrpn_listen(NRPN_LED_ENABLE, led_nrpn_listener);
 }
+
+#else /* KYR_LED_OUT_PIN >= 0 && KYR_LED_NUM_LED > 0 */
+
+static void led_setup(void) {}
+
+#endif /* KYR_LED_OUT_PIN >= 0 && KYR_LED_NUM_LED > 0 */

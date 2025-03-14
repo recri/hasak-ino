@@ -276,6 +276,10 @@ static void nrpn_set_default(void) {
   nrpn_set(NRPN_HDW_IN_ENABLE, 0);
   nrpn_set(NRPN_HDW_OUT_ENABLE, 1);
 
+  xnrpn_set(NRPN_XLED_ON_COLOR, 0x101010);
+  xnrpn_set(NRPN_XLED_OFF_COLOR, 0x080405);
+  nrpn_set(NRPN_LED_ENABLE, 1);
+
   nrpn_set(NRPN_VOLUME, 0);
   nrpn_set(NRPN_LEVEL, 0);	/* dB/10, centiBel */
   nrpn_set(NRPN_USB_LEVEL, 0);

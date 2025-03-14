@@ -71,7 +71,9 @@ void AudioSynthKeyedTone::update(void)
   else bp = (int16_t *)zeros;
   pend = bp+AUDIO_BLOCK_SAMPLES;
   ip = blocki->data;
-  if (channels == 2) qp = blockq->data;
+  if (channels == 2) {
+    qp = blockq->data;
+  }
   while (bp < pend) {
     int32_t key = *bp++;
     uint32_t phase_inc = phase_increment();

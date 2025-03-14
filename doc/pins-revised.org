@@ -54,12 +54,14 @@
 *** I2C_SCL 19
 ** The handful of people who have the CWKeyer Shield might
    care that we preserve these assignments
+   Note that the right and left paddles are reversed to my sense of logic.
+   And that the ptt and key outputs are similarly backward.
 *** PDL_R 0
 *** PDL_L 1
 *** KEY_IN 2
 *** PTT_IN 3
-*** KEY_OUT 5
 *** PTT_OUT 4
+*** KEY_OUT 5
 ** But I doubt these will survive, we use A2,A3 for the hardware
    stereo audio library input, A0,A1 probably go to a serial interface
    for talking with a GPS module, or to a serial CAT interface on an
