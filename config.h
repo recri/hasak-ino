@@ -222,8 +222,8 @@
 ** pin allocations for standard input switches and output latches
 ** FIX.ME these should be allocated and connected like the rest.
 */
-#define KYR_R_PAD_PIN	0	/* {type pin title {right paddle input pin}} */
-#define KYR_L_PAD_PIN	1	/* {type pin title {left paddle input pin}} */
+#define KYR_L_PAD_PIN	0	/* {type pin title {left paddle input pin}} */
+#define KYR_R_PAD_PIN	1	/* {type pin title {right paddle input pin}} */
 #define KYR_S_KEY_PIN	2	/* {type pin title {straight key input pin}} */
 #define KYR_EXT_PTT_PIN	3	/* {type pin title {external PTT switch input pin}} */
 #define KYR_PTT_OUT_PIN	4	/* {type pin title {PTT output pin}} */
