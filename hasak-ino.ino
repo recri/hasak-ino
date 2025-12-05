@@ -68,6 +68,19 @@ static int codec_identify(void); // forward for nprn.h
 
 #include "diagnostics.h"
 
+// unique identifier for teensy 4.0/4.1
+static void teensyMAC(uint8_t *mac)
+{
+  uint32_t m1 = HW_OCOTP_MAC1;
+  uint32_t m2 = HW_OCOTP_MAC0;
+  mac[0] = m1 >> 8;
+  mac[1] = m1 >> 0;
+  mac[2] = m2 >> 24;
+  mac[3] = m2 >> 16;
+  mac[4] = m2 >> 8;
+  mac[5] = m2 >> 0;
+}
+
 //
 // poll input pins at sample rate
 // latch output pins at sample rate
@@ -89,11 +102,14 @@ static void interrupt() {
 }
 
 void setup(void) {
-#define KYR_SERIAL_ENABLE 1
+  // #define KYR_SERIAL_ENABLE 1
 #if KYR_SERIAL_ENABLE
   Serial.begin(115200);
   while ( ! Serial);
   Serial.printf("hasak.ino setup()\n");
+  static uint8_t mac[6];
+  teensyMAC(mac);
+  Serial.printf("hasak MAC %d %d %d %d %d %d\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 #endif
   listener_setup();		// set up listener free list
   midi_setup();			// initialize the midi interface

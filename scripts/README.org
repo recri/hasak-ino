@@ -1,0 +1,8 @@
+This script started out as a way to check that #defines in config.h were self-consistent.
+
+Then we converted the defines into a JSON object which defined the interface, or part of it.
+
+Now we want to go into reverse and use the JSON as the source for the config.h defines and
+other parts of the source.
+
+In particular, defines.h is a large error prone 
